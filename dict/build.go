@@ -173,6 +173,11 @@ func mergeFiles() error {
 
 	// Write the index file followed by word file to the dict file
 
+	// Buffered Copying: io.Copy copies data from the source
+	// (indexFile and wordFile) to the destination (dictFile) in chunks
+	// (typically 32KB by default, depending on the implementation).
+	// This means it does not read the entire file into memory at once.
+
 	_, err = io.Copy(dictFile, indexFile)
 	if err != nil {
 		return fmt.Errorf("error copying index file to dict: %v", err)
