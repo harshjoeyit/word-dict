@@ -84,7 +84,7 @@ func flushIndex(indexEntries []IndexEntry) error {
 	// Calculate the size of the index
 	totalIndexSize := calcIndexSize(indexEntries)
 
-	log.Println("Total index size:", totalIndexSize)
+	log.Println("Flushing index of size size:", totalIndexSize)
 
 	var separator string = ":"
 

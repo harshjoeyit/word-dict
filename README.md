@@ -9,6 +9,15 @@ The `dict` package provides the following functions for interacting with the wor
 
 *   **`NewDict() (*dict.Dict, error)`:** Creates and initializes a new dictionary. It opens `dict.dat` file and reads index into memory.
 
+*   **`UpdateDict() error`:** Updates the dictionary based on changes specified in the `changelog.dat` file. This function performs the following steps:
+
+    1.  Merges the `changelog.dat` file with the existing `dict.dat` to create a new `<temp-folder>/words.dat` file.
+    2.  Archives the old dictionary files (words.dat, index.dat, dict.dat, and changelog.dat) to an archive directory.
+    3.  Rebuilds the dictionary index using `<temp-folder>/words.dat` and creates a new `dict.dat` file.
+
+    **Important:** The `changelog.dat` file must be in the same format as `words.dat` (i.e., `word,definition` on each line) and must be sorted in ascending order of words. The `changelog.dat` file should only contain updates to *existing* words in the dictionary; it should not contain new words.
+
+
 *   **`(*Dict).QueryWord(word string) (string, bool)`:**  Using the index, API does pointed reades using offset to find definition of a word.
 
 *   **`(*Dict).Close() error`:** Closes the dictionary file.

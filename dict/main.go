@@ -8,9 +8,14 @@ import (
 )
 
 const (
-	wordsFilename = "words.dat" // The file containing the words and their definitions
-	indexFilename = "index.dat" // The file containing the index entries. It's a temporary file.
-	dictFilename  = "dict.dat"  // The file containing the merged words and index. It's used by API to run queries.
+	// wordsFilename file containing the words and their definitions
+	wordsFilename = "words.dat"
+	// indexFilename file containing the index entries. It's a temporary file created
+	// during the build process.
+	indexFilename = "index.dat"
+	// dictFilename file containing the merged words and index. It's used by
+	// API to run queries.
+	dictFilename = "dict.dat"
 )
 
 type Dict struct {
