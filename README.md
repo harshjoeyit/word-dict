@@ -22,7 +22,17 @@ The `dict` package provides the following functions for interacting with the wor
 
 *   **`(*Dict).Close() error`:** Closes the dictionary file.
 
-## Workflow for buildinga and querying the dictionary:
+The `s3dict` package provides the following functions for interacting with a word dictionary stored in AWS S3:
+
+*   **`New() (*s3dict.S3Dict, error)`:** Creates and initializes a new `S3Dict` object. It retrieves the dictionary file from S3, reads the index, and stores it in memory. This function requires the following environment variables to be set:
+
+    *   `S3_BUCKET_NAME`, `AWS_REGION`, `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `DICT_KEY`: The key (path) of the dictionary file in the S3 bucket.
+
+    Returns a pointer to an `S3Dict` object and an error if the dictionary cannot be created.
+
+*   **`(*S3Dict).QueryWord(word string) (string, bool)`:** Queries the dictionary for a word and returns its definition. It first checks the in-memory index for the word. If found, it retrieves the definition from the S3 object using a byte range request. Returns the definition of the word (if found) and a boolean indicating whether the word was found.
+
+## Workflow for building and querying the dictionary:
 
 1.  **Create the words data file (`words.dat`):**
     *   This file is required and contains words and their meanings, with each entry formatted as `word,definition`.
