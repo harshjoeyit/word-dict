@@ -29,7 +29,7 @@ type IndexEntry struct {
 	DefSize int16 // size of the definition
 }
 
-func NewDict() (*Dict, error) {
+func New() (*Dict, error) {
 	// Check if the dictionary file exists
 	if !Exists() {
 		// build a new dictionary
