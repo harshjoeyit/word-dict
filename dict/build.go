@@ -94,7 +94,7 @@ func flushIndex(indexEntries []IndexEntry) error {
 		// In order to create dict file we have prepend indexFile to wordsFile
 		// hence the offset for each word in index file would be shifted by indexSize bytes
 		// so we need to update the offset of each word before flushing the index
-		idxe.Offset += int64(totalIndexSize)
+		idxe.Offset += totalIndexSize
 
 		// Write the word
 		buf.WriteString(idxe.Word)
@@ -131,12 +131,12 @@ func flushIndex(indexEntries []IndexEntry) error {
 
 // calcIndexSize calculates the number of bytes needed to store the index
 // This includes the constant size header (8 bytes) + total size of all index entries
-func calcIndexSize(indexEntries []IndexEntry) uint64 {
-	var indexSize uint64 = 8 // 8 bytes for the header
+func calcIndexSize(indexEntries []IndexEntry) int64 {
+	var indexSize int64 = 8 // 8 bytes for the header
 
 	for _, idxe := range indexEntries {
 		// len(word) bytes for word and 1 byte for separator
-		indexSize += uint64(len(idxe.Word)) + 1
+		indexSize += int64(len(idxe.Word)) + 1
 		// 8 bytes for offset and 1 byte for separator
 		indexSize += 8 + 1
 		// 2 bytes for definition size and 1 byte for newline
